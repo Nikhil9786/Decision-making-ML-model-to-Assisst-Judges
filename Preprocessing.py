@@ -1,6 +1,6 @@
 import numpy as np
 import csv
-import random
+import secrets
 
 def preprocess(metrics, recalculate=False, causal=False):
 
@@ -109,11 +109,11 @@ def clean_data():
                 break
 
         if len(pos_data) < len(neg_data):
-            data = pos_data + random.sample(neg_data, len(pos_data))
+            data = pos_data + secrets.SystemRandom().sample(neg_data, len(pos_data))
         else:
-            data = neg_data + random.sample(pos_data, len(neg_data))
+            data = neg_data + secrets.SystemRandom().sample(pos_data, len(neg_data))
 
-    random.shuffle(data)
+    secrets.SystemRandom().shuffle(data)
 
     return categories, data
 
@@ -150,7 +150,7 @@ def split_data(data, categories, percent_test, causal=False):
         if zeros == ones:
             break
         else:
-            random.shuffle(data)
+            secrets.SystemRandom().shuffle(data)
 
     np.save("COMPAS_train_data", training_data)
     np.save("COMPAS_train_labels", training_labels)
