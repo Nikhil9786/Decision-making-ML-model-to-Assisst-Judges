@@ -139,8 +139,7 @@ def get_false_positive_rate(prediction_label_pairs):
 
     for pair in prediction_label_pairs:
         prediction = int(pair[0])
-        label = int(pair[1])
-        if label == 0:
+        if (label := int(pair[1])) == 0:
             labelled_negatives += 1
             if prediction == 1:
                 false_positives += 1
@@ -224,8 +223,7 @@ def get_false_negative_rate(prediction_label_pairs):
 
     for pair in prediction_label_pairs:
         prediction = int(pair[0])
-        label = int(pair[1])
-        if label == 1:
+        if (label := int(pair[1])) == 1:
             labelled_positives += 1
             if prediction == 0:
                 false_negatives += 1
@@ -283,8 +281,7 @@ def get_num_predicted_positives(prediction_label_pairs):
     predicted_positives = 0
 
     for pair in prediction_label_pairs:
-        prediction = int(pair[0])
-        if prediction == 1:
+        if (prediction := int(pair[0])) == 1:
             predicted_positives += 1
 
     return predicted_positives
@@ -302,9 +299,8 @@ number of predicted positives
 
 def get_positive_predictive_value(prediction_label_pairs):
     true_positives = get_num_true_positives(prediction_label_pairs)
-    predicted_positives = get_num_predicted_positives(prediction_label_pairs)
 
-    if predicted_positives == 0:
+    if (predicted_positives := get_num_predicted_positives(prediction_label_pairs)) == 0:
         return 0
     else:
         return true_positives / predicted_positives
